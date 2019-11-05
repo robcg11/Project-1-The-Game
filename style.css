@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower&display=swap');
+
+body{
+    text-align: center;
+    background-color: black;
+    font-family: 'Indie Flower', cursive;
+    margin: 0;
+}
+
+button {
+    font-family: 'Indie Flower', cursive;
+    font-size: 30px;
+    font-weight: bolder;
+    border-radius: 10px;
+    background-color: rgb(73, 97, 17);
+    color: rgb(245, 174, 20);
+    padding: 0 20px;
+    margin: 0 0 5px 0;
+    display: inline;
+    vertical-align: 80px;
+  }
+
+  canvas{
+      border: solid white;
+  }
