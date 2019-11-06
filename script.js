@@ -49,22 +49,22 @@ class Player {
   } 
   moveUp(){
     if(this.y > 230){
-      this.y -= 10;
+      this.y -= 15;
     } 
   }
   moveDown(){
     if(this.y <310 ){
-      this.y +=10;
+      this.y +=15;
     }
   }
   moveRight(){
     if(this.x < 910){
-      this.x +=10;
+      this.x +=15;
     }
   }
   moveLeft(){
     if(this.x > 10){
-      this.x -=10;
+      this.x -=15;
     }
   }
   crash(obstacle) {
@@ -157,12 +157,15 @@ class Board{
       } else if(frames>=600 && frames <900){
         this.x-= 20
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
+      }else if(frames>=1100 ){
+        this.x-= 20
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
       }
     }
   }
 
   function genWall() {
-    if (frames %  50 === 0) {
+    if (frames %  100 === 0) {
       const wall = new Wall()
       walls.push(wall)
     }
@@ -187,6 +190,20 @@ class Board{
         ctx.fillText(' Player 2', 370, 200)
       }
     })
+    fwalls.forEach((flo) => {
+      if (player1.crash(flo)) {
+        clearInterval(interval)
+        ctx.font = '30px Arial'
+        ctx.fillStyle = 'white'
+        ctx.fillText(' Player 1', 370, 200)
+      }
+      if (player2.crash(flo)) {
+        clearInterval(interval)
+        ctx.font = '30px Arial'
+        ctx.fillStyle = 'white'
+        ctx.fillText(' Player 2', 370, 200)
+      }
+    })
   }
  
   class floorWall {
@@ -199,23 +216,24 @@ class Board{
       this.img.src = './images/wall-floor.png'
     }
     draw() {
-      if(frames>=920 && frames <1020){
+      
         this.x-= 20
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
-      }
+      
     }
   }
 
   function genFloorWall() {
-    if (frames %  4 === 0) {
+    if (frames %  10 === 0) {
       const floor = new floorWall()
       fwalls.push(floor)
     }
   }
 
   function drawFloorWalls() {
+    if(frames>=920 && frames <1050){
     fwalls.forEach(flo => flo.draw())
-  }
+  }}
 
  class Ramp {
   constructor() {
@@ -273,10 +291,10 @@ function checkJump() {
     back.draw();
     player1.draw()
     player2.draw()
-    genWall()
-    drawWalls()
     genRamp()
     drawRamps()
+    genWall()
+    drawWalls()
     checkJump()
     genFloorWall()
     drawFloorWalls()
