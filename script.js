@@ -1,10 +1,13 @@
+var audio = document.getElementById('audio')
+
 window.onload = function() {
-    document.getElementById("button").onclick = function() {
-      startGame();
+  document.getElementById("button").onclick = function() {
+        startGame();
     };
   
     function startGame() {
-        interval = setInterval(update, 1000 /60);   
+        interval = setInterval(update, 1000 /60);
+        audio.play()   
     }
 };
 
@@ -68,19 +71,25 @@ class Player {
     }
   }
   crash(obstacle) {
-    return (
-      this.x < obstacle.x + obstacle.width &&
-      this.x + this.width > obstacle.x &&
-      this.y < obstacle.y + obstacle.height &&
-      this.y + this.height > obstacle.y
-    )
+    if(obstacle.y === 304){
+      return (
+        this.x + this.width >= obstacle.x &&
+        this.x + this.width <= obstacle.x + obstacle.width &&
+        this.y  > 270
+      )
+    } else if(obstacle.y ===230){
+      return (
+        this.x + this.width >= obstacle.x &&
+        this.x + this.width <= obstacle.x + obstacle.width &&
+        this.y  < 270 && this.y > 250
+      )
+    }
   }
   jumper(ram) {
     return (
-      this.x < ram.x + ram.width &&
-      this.x + this.width > ram.x &&
-      this.y < ram.y + ram.height &&
-      this.y + this.height > ram.y
+      this.x + this.width >= ram.x &&
+      this.x + this.width <= ram.x + ram.width &&
+      this.y  < 305
     )
   }
   fall(){
@@ -152,10 +161,10 @@ class Board{
         this.x-=3
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
       } else if(frames>=400 && frames<600){
-        this.x-= 7
+        this.x-= 5
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
       } else if(frames>=600 && frames <900){
-        this.x-= 20
+        this.x-= 6
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
       }else if(frames>=1100 ){
         this.x-= 20
@@ -179,29 +188,33 @@ class Board{
     walls.forEach((wall) => {
       if (player1.crash(wall)) {
         clearInterval(interval)
-        ctx.font = '30px Arial'
+        ctx.font = '50px "Indie Flower", cursive'
         ctx.fillStyle = 'white'
-        ctx.fillText(' Player 1', 370, 200)
+        ctx.fillText(' Player 1', 150, 100)
+        audio.pause();
       }
       if (player2.crash(wall)) {
         clearInterval(interval)
-        ctx.font = '30px Arial'
+        ctx.font = '50px "Indie Flower", cursive'
         ctx.fillStyle = 'white'
-        ctx.fillText(' Player 2', 370, 200)
+        ctx.fillText(' Player 2', 700, 100)
+        audio.pause();
       }
     })
     fwalls.forEach((flo) => {
       if (player1.crash(flo)) {
         clearInterval(interval)
-        ctx.font = '30px Arial'
+        ctx.font = '50px "Indie Flower", cursive'
         ctx.fillStyle = 'white'
-        ctx.fillText(' Player 1', 370, 200)
+        ctx.fillText(' Player 1', 150, 100)
+        audio.pause();
       }
       if (player2.crash(flo)) {
         clearInterval(interval)
-        ctx.font = '30px Arial'
+        ctx.font = '50px "Indie Flower", cursive'
         ctx.fillStyle = 'white'
-        ctx.fillText(' Player 2', 370, 200)
+        ctx.fillText(' Player 2', 700, 100)
+        audio.pause();
       }
     })
   }
@@ -224,7 +237,7 @@ class Board{
   }
 
   function genFloorWall() {
-    if (frames %  10 === 0) {
+    if (frames %  2 === 0) {
       const floor = new floorWall()
       fwalls.push(floor)
     }
@@ -266,14 +279,13 @@ function drawRamps() {
 function checkJump() {
   ramps.forEach((ra) => {
     if (player1.jumper(ra)) {
-       player1.y -=310
+       player1.y -=180
     }
     if (player2.jumper(ra)) {
-       player2.y -=310
+       player2.y -=180
     }
   })
 }
-
 
   let back = new Board()
   let player1 = new Player()
@@ -298,6 +310,7 @@ function checkJump() {
     checkJump()
     genFloorWall()
     drawFloorWalls()
+    checkColitions()
     player1.fall()
     player2.fall()
     document.onkeydown = (e) => {

@@ -7,6 +7,10 @@ body{
     margin: 0;
 }
 
+#audio{
+    display: none;
+}
+
 button {
     font-family: 'Indie Flower', cursive;
     font-size: 30px;
@@ -23,3 +27,57 @@ button {
   canvas{
       border: solid white;
   }
+
+  .wasd{
+      position: absolute;
+      width: 110px;
+      height: 90px;
+      top: 500px;
+      left: 30px;
+  }
+
+  .arrow{
+    position: absolute;
+    width: 110px;
+    height: 90px;
+    top: 500px;
+    right: 30px;
+}
+
+.pimple{
+    position: absolute;
+    width: 110px;
+    height: 90px;
+    top: 390px;
+    left: 30px;
+}
+
+.rash{
+    position: absolute;
+    width: 110px;
+    height: 90px;
+    top: 390px;
+    right: 30px;
+}
+
+.player1{
+    position: absolute;
+    color: gray;
+    font-size: 31px;
+    font-weight: bolder;
+    width: 110px;
+    height: 90px;
+    top: 310px;
+    right: 30px;
+}
+
+.player2{
+    position: absolute;
+    font-size: 31px;
+    font-weight: bolder;
+    color: gray;
+    width: 110px;
+    height: 90px;
+    top: 310px;
+    left: 30px;
+}
