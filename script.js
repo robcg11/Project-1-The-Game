@@ -81,7 +81,7 @@ class Player {
       return (
         this.x + this.width >= obstacle.x &&
         this.x + this.width <= obstacle.x + obstacle.width &&
-        this.y  < 270 && this.y > 250
+        this.y  < 270 && this.y > 220
       )
     }
   }
@@ -190,14 +190,14 @@ class Board{
         clearInterval(interval)
         ctx.font = '50px "Indie Flower", cursive'
         ctx.fillStyle = 'white'
-        ctx.fillText(' Player 1', 150, 100)
+        ctx.fillText(' Player 1 lose', 150, 100)
         audio.pause();
       }
       if (player2.crash(wall)) {
         clearInterval(interval)
         ctx.font = '50px "Indie Flower", cursive'
         ctx.fillStyle = 'white'
-        ctx.fillText(' Player 2', 700, 100)
+        ctx.fillText(' Player 2 lose', 600, 100)
         audio.pause();
       }
     })
@@ -206,14 +206,14 @@ class Board{
         clearInterval(interval)
         ctx.font = '50px "Indie Flower", cursive'
         ctx.fillStyle = 'white'
-        ctx.fillText(' Player 1', 150, 100)
+        ctx.fillText(' Player 1 lose', 150, 100)
         audio.pause();
       }
       if (player2.crash(flo)) {
         clearInterval(interval)
         ctx.font = '50px "Indie Flower", cursive'
         ctx.fillStyle = 'white'
-        ctx.fillText(' Player 2', 700, 100)
+        ctx.fillText(' Player 2 lose', 600, 100)
         audio.pause();
       }
     })
