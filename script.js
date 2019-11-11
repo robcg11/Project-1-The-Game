@@ -83,13 +83,19 @@ class Player {
         this.x + this.width <= obstacle.x + obstacle.width &&
         this.y  < 270 && this.y > 220
       )
+    } else if (obstacle.y === 280){
+      return (
+        this.x + this.width >= obstacle.x &&
+        this.x + this.width <= obstacle.x + obstacle.width &&
+        this.y > 209
+      )
     }
   }
   jumper(ram) {
     return (
       this.x + this.width >= ram.x &&
       this.x + this.width <= ram.x + ram.width &&
-      this.y  < 305
+      this.y > 250 && this.y  < 290
     )
   }
   fall(){
@@ -163,10 +169,10 @@ class Board{
       } else if(frames>=400 && frames<600){
         this.x-= 5
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
-      } else if(frames>=600 && frames <900){
+      } else if(frames>=600 && frames <840){
         this.x-= 6
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
-      }else if(frames>=1100 ){
+      }else if(frames>=1600){
         this.x-= 20
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
       }
@@ -237,14 +243,14 @@ class Board{
   }
 
   function genFloorWall() {
-    if (frames %  2 === 0) {
+    if (frames %  105 === 0) {
       const floor = new floorWall()
       fwalls.push(floor)
     }
   }
 
   function drawFloorWalls() {
-    if(frames>=920 && frames <1050){
+    if(frames>=920 && frames <1520){
     fwalls.forEach(flo => flo.draw())
   }}
 
@@ -258,7 +264,7 @@ class Board{
     this.img.src = './images/ramp.png'
   }
   draw() {
-    if(frames>=900 && frames <950){
+    if(frames>=900 && frames <1500){
       this.x-=20
       ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
     } 
@@ -266,7 +272,7 @@ class Board{
 }
 
 function genRamp() {
-  if (frames %  900 === 0) {
+  if (frames %  100 === 0) {
     const ramp = new Ramp()
     ramps.push(ramp)
   }
@@ -299,6 +305,7 @@ function checkJump() {
 
   function update() {
     frames++;
+    console.log(frames)
     clearCanvas();
     back.draw();
     player1.draw()
